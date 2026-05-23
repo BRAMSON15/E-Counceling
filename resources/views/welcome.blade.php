@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{route('Walikelas.login')}}">Masuk sistem</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{route('login')}}">Masuk sistem</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Riwayat Konseling</a></li>
                 </ul>
             </div>
