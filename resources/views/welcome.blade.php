@@ -14,6 +14,27 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{asset('berandautama/css/styles.css')}}" rel="stylesheet" />
+        <style>
+            section.resume-section.about-section {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("{{ asset('berandautama/assets/img/SMA12.jpg') }}") !important;
+                background-size: cover !important;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
+                max-width: none !important;
+            }
+            section.resume-section.about-section .resume-section-content {
+                max-width: 75rem;
+            }
+            section.resume-section.about-section h1 {
+                color: #ffffff !important;
+            }
+            section.resume-section.about-section .subheading {
+                color: rgba(255, 255, 255, 0.75) !important;
+            }
+            section.resume-section.about-section p.lead {
+                color: rgba(255, 255, 255, 0.85) !important;
+            }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -34,7 +55,7 @@
         <!-- Page Content-->
         <div class="container-fluid p-0">
             <!-- About-->
-            <section class="resume-section" id="about">
+            <section class="resume-section about-section" id="about">
                 <div class="resume-section-content">
                     <h1 class="mb-0">
                         Selamat datang di sistem 

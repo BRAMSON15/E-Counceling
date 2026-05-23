@@ -628,7 +628,11 @@ progress {
 }
 
 .container,
-.container-fluid,
+.container-fluid {
+  /* background-image: url('../assets/img/SMA12.jpg'); */
+  
+}
+
 .container-xxl,
 .container-xl,
 .container-lg,
@@ -10952,6 +10956,12 @@ section.resume-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
   max-width: 75rem;
+}
+
+section.resume-section.about-section {
+  background-image: url('../assets/img/SMA12.jpg'), linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.85) 100%) !important;
+  background-size: cover !important;
+  background-position: center !important;
 }
 section.resume-section .resume-section-content {
   width: 100%;
