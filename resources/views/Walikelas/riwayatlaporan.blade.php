@@ -158,14 +158,39 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td colspan="7" class="text-center py-4 text-muted">
-                                                            <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
-                                                            Belum ada riwayat laporan pelanggaran.
-                                                        </td>
-                                                    </tr>
+                                                    @forelse($riwayat as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->siswa->nama ?? '-' }}</td>
+                                                            <td>{{ $item->siswa->kelas ?? '-' }}</td>
+                                                            <td>{{ $item->jenis_pelanggaran }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d/m/Y') }}</td>
+                                                            <td>
+                                                                @if($item->status === 'selesai')
+                                                                    <span class="badge bg-success">Selesai</span>
+                                                                @else
+                                                                    <span class="badge bg-warning">Menunggu</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="btn btn-sm btn-info" title="Lihat Detail">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="7" class="text-center py-4 text-muted">
+                                                                <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
+                                                                Belum ada riwayat laporan pelanggaran.
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $riwayat->links() }}
                                         </div>
                                     </div>
                                 </div>

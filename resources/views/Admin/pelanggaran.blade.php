@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Kelola User - E-Counseling SMA NEGERI 12 AMBON" />
-    <title>Kelola User | E-Counseling</title>
+    <meta name="description" content="Data Pelanggaran - E-Counseling SMA NEGERI 12 AMBON" />
+    <title>Data Pelanggaran | E-Counseling</title>
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -32,11 +32,9 @@
         .btn-edit:hover { background-color: #a44d2d; border-color: #a44d2d; }
         .btn-delete { background-color: #dc3545; border-color: #dc3545; color: #fff; }
         .btn-delete:hover { background-color: #c82333; border-color: #c82333; }
-        .btn-tambah { background-color: #28a745; border-color: #28a745; color: #fff; }
-        .btn-tambah:hover { background-color: #218838; border-color: #218838; }
-        .badge-admin { background-color: #dc3545; }
-        .badge-guru_bk { background-color: #007bff; }
-        .badge-walikelas { background-color: #17a2b8; }
+        .badge-pending { background-color: #ffc107; color: #000; }
+        .badge-selesai { background-color: #28a745; color: #fff; }
+        .badge-proses { background-color: #17a2b8; color: #fff; }
         footer { background: linear-gradient(90deg, #1e1e23 0%, #2d1a10 100%) !important; border-top: 2px solid #bd5d38; }
         footer .text-muted { color: rgba(255,255,255,0.5) !important; }
     </style>
@@ -94,7 +92,7 @@
                         <div class="collapse" id="collapseKonseling" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('admin.konseling') }}"><i class="fas fa-circle-dot me-1 small"></i> Semua Konseling</a>
-                                <a class="nav-link" href="{{ route('admin.pelanggaran') }}"><i class="fas fa-circle-dot me-1 small"></i> Data Pelanggaran</a>
+                                <a class="nav-link active" href="{{ route('admin.pelanggaran') }}"><i class="fas fa-circle-dot me-1 small"></i> Data Pelanggaran</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
@@ -102,9 +100,9 @@
                             Data Pengguna
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse show" id="collapseUsers" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapseUsers" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link active" href="{{ route('admin.kelolauser') }}"><i class="fas fa-circle-dot me-1 small"></i> Kelola Pengguna</a>
+                                <a class="nav-link" href="{{ route('admin.kelolauser') }}"><i class="fas fa-circle-dot me-1 small"></i> Kelola Pengguna</a>
                                 <a class="nav-link" href="{{ route('admin.tambahuser.form') }}"><i class="fas fa-circle-dot me-1 small"></i> Tambah Pengguna</a>
                             </nav>
                         </div>
@@ -134,12 +132,12 @@
             <main>
                 <div class="container-fluid px-4 pt-4">
                     <div class="page-header">
-                        <h1><i class="fas fa-users me-2" style="color:#bd5d38;font-size:1.8rem;"></i>Kelola Pengguna</h1>
+                        <h1><i class="fas fa-exclamation-triangle me-2" style="color:#bd5d38;font-size:1.8rem;"></i>Data Pelanggaran</h1>
                     </div>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#">Data Pengguna</a></li>
-                        <li class="breadcrumb-item active">Kelola Pengguna</li>
+                        <li class="breadcrumb-item"><a href="#">Data Konseling</a></li>
+                        <li class="breadcrumb-item active">Data Pelanggaran</li>
                     </ol>
 
                     @if ($message = Session::get('success'))
@@ -150,14 +148,9 @@
                     @endif
 
                     <div class="card content-card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-table"></i>
-                                Daftar Pengguna Sistem
-                            </div>
-                            <a href="{{ route('admin.tambahuser.form') }}" class="btn btn-sm btn-tambah">
-                                <i class="fas fa-plus me-1"></i> Tambah Pengguna
-                            </a>
+                        <div class="card-header">
+                            <i class="fas fa-table"></i>
+                            Daftar Pelanggaran Siswa
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -165,34 +158,36 @@
                                     <thead class="table-dark">
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Terdaftar</th>
+                                            <th>Nama Siswa</th>
+                                            <th>NIS</th>
+                                            <th>Jenis Pelanggaran</th>
+                                            <th>Tanggal</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($users as $user)
+                                        @forelse ($pelanggaran as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $item->siswa->nama ?? '-' }}</td>
+                                                <td>{{ $item->siswa->nis ?? '-' }}</td>
+                                                <td>{{ $item->jenis_pelanggaran }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d/m/Y') }}</td>
                                                 <td>
-                                                    @if ($user->role == 'admin')
-                                                        <span class="badge badge-admin">Admin</span>
-                                                    @elseif ($user->role == 'guru_bk')
-                                                        <span class="badge badge-guru_bk">Guru BK</span>
+                                                    @if ($item->status == 'pending')
+                                                        <span class="badge badge-pending">Pending</span>
+                                                    @elseif ($item->status == 'selesai')
+                                                        <span class="badge badge-selesai">Selesai</span>
                                                     @else
-                                                        <span class="badge badge-walikelas">Walikelas</span>
+                                                        <span class="badge badge-proses">Proses</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.edituser', $user->id) }}" class="btn btn-sm btn-edit" title="Edit">
+                                                    <a href="#" class="btn btn-sm btn-edit" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('admin.deleteuser', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
+                                                    <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-delete" title="Hapus">
@@ -203,9 +198,9 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center text-muted py-4">
+                                                <td colspan="7" class="text-center text-muted py-4">
                                                     <i class="fas fa-inbox fa-2x mb-2"></i><br>
-                                                    Tidak ada data pengguna
+                                                    Tidak ada data pelanggaran
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -213,7 +208,7 @@
                                 </table>
                             </div>
                             <div class="d-flex justify-content-center mt-3">
-                                {{ $users->links() }}
+                                {{ $pelanggaran->links() }}
                             </div>
                         </div>
                     </div>

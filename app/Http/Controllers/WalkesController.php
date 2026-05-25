@@ -27,8 +27,17 @@ class WalkesController extends Controller
             ->with('siswa')
             ->latest()
             ->paginate(10);
+        
+        $siswas = Siswa::all();
 
-        return view('Walikelas.laporanpelanggaran', compact('laporan'));
+        return view('Walikelas.laporanpelanggaran', compact('laporan', 'siswas'));
+    }
+
+    // Laporan Pelanggaran - Form
+    public function laporanForm()
+    {
+        $siswas = Siswa::all();
+        return view('Walikelas.form-laporan', compact('siswas'));
     }
 
     // Laporan Pelanggaran - Store
@@ -54,6 +63,29 @@ class WalkesController extends Controller
         $siswa = Siswa::paginate(10);
 
         return view('Walikelas.datasiswa', compact('siswa'));
+    }
+
+    // Tambah Siswa - Form
+    public function tambahSiswaForm()
+    {
+        return view('Walikelas.tambah-siswa');
+    }
+
+    // Tambah Siswa - Store
+    public function tambahSiswa(Request $request)
+    {
+        $validated = $request->validate([
+            'nis' => 'required|string|unique:siswas,nis',
+            'nama' => 'required|string',
+            'kelas' => 'required|string',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'no_telepon' => 'nullable|string',
+            'alamat' => 'nullable|string',
+        ]);
+
+        Siswa::create($validated);
+
+        return redirect()->route('walikelas.datasiswa')->with('success', 'Siswa berhasil ditambahkan');
     }
 
     // Riwayat Laporan

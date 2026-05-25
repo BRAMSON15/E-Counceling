@@ -46,6 +46,11 @@
             .dropdown-item:hover { background: rgba(189,93,56,0.25) !important; color: #fff !important; }
             .logout-btn { background: #bd5d38 !important; border-color: #bd5d38 !important; color: #fff !important; border-radius: 6px; font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.9rem; transition: all 0.25s; }
             .logout-btn:hover { background: #a44d2d !important; border-color: #a44d2d !important; transform: translateY(-1px); }
+            .is-invalid { border-color: #dc3545 !important; }
+            .invalid-feedback { color: #dc3545; font-size: 0.875rem; display: block; margin-top: 0.25rem; }
+            .table thead th { background: #2d1a10; color: #fff; border-color: rgba(189,93,56,0.3); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04rem; }
+            .table tbody tr:hover { background-color: rgba(189,93,56,0.06); }
+            .badge { font-size: 0.75rem; padding: 0.35rem 0.6rem; }
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -136,58 +141,137 @@
                             <li class="breadcrumb-item active">Laporan Pelanggaran</li>
                         </ol>
 
+                        <!-- SUCCESS MESSAGE -->
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Berhasil!</strong> {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <!-- FORM LAPORAN -->
                         <div class="row mb-4">
-                            <div class="col-12">
+                            <div class="col-lg-8">
                                 <div class="card content-card">
                                     <div class="card-header">
                                         <i class="fas fa-plus-circle"></i> Buat Laporan Pelanggaran Baru
                                     </div>
                                     <div class="card-body">
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="namaSiswa" class="form-label">Nama Siswa</label>
-                                                    <input type="text" class="form-control" id="namaSiswa" placeholder="Masukkan nama siswa" required>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="kelas" class="form-label">Kelas</label>
-                                                    <select class="form-control" id="kelas" required>
-                                                        <option value="">-- Pilih Kelas --</option>
-                                                        <option value="X-A">X-A</option>
-                                                        <option value="X-B">X-B</option>
-                                                        <option value="XI-A">XI-A</option>
-                                                        <option value="XI-B">XI-B</option>
-                                                        <option value="XII-A">XII-A</option>
-                                                        <option value="XII-B">XII-B</option>
-                                                    </select>
-                                                </div>
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <i class="fas fa-exclamation-circle me-2"></i>
+                                                <strong>Terjadi Kesalahan!</strong>
+                                                <ul class="mb-0 mt-2">
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="jenispelanggaran" class="form-label">Jenis Pelanggaran</label>
-                                                    <select class="form-control" id="jenispelanggaran" required>
-                                                        <option value="">-- Pilih Jenis Pelanggaran --</option>
-                                                        <option value="Terlambat">Terlambat</option>
-                                                        <option value="Tidak Mengerjakan PR">Tidak Mengerjakan PR</option>
-                                                        <option value="Berpakaian Tidak Rapi">Berpakaian Tidak Rapi</option>
-                                                        <option value="Berbicara Kasar">Berbicara Kasar</option>
-                                                        <option value="Lainnya">Lainnya</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="tanggal" class="form-label">Tanggal Pelanggaran</label>
-                                                    <input type="date" class="form-control" id="tanggal" required>
-                                                </div>
-                                            </div>
+                                        @endif
+
+                                        <form action="{{ route('walikelas.laporan.store') }}" method="POST">
+                                            @csrf
+
                                             <div class="mb-3">
-                                                <label for="keterangan" class="form-label">Keterangan</label>
-                                                <textarea class="form-control" id="keterangan" rows="4" placeholder="Jelaskan detail pelanggaran..."></textarea>
+                                                <label for="siswa_id" class="form-label">Pilih Siswa</label>
+                                                <select class="form-control @error('siswa_id') is-invalid @enderror" id="siswa_id" name="siswa_id" required>
+                                                    <option value="">-- Pilih Siswa --</option>
+                                                    @foreach($siswas ?? [] as $siswa)
+                                                        <option value="{{ $siswa->id }}" {{ old('siswa_id') == $siswa->id ? 'selected' : '' }}>
+                                                            {{ $siswa->nama }} ({{ $siswa->nis }}) - {{ $siswa->kelas }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('siswa_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
+
+                                            <div class="mb-3">
+                                                <label for="jenis_pelanggaran" class="form-label">Jenis Pelanggaran</label>
+                                                <input type="text" class="form-control @error('jenis_pelanggaran') is-invalid @enderror" id="jenis_pelanggaran" name="jenis_pelanggaran" value="{{ old('jenis_pelanggaran') }}" placeholder="Contoh: Terlambat, Tidak Mengerjakan PR" required>
+                                                @error('jenis_pelanggaran')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="tanggal_pelanggaran" class="form-label">Tanggal Pelanggaran</label>
+                                                <input type="date" class="form-control @error('tanggal_pelanggaran') is-invalid @enderror" id="tanggal_pelanggaran" name="tanggal_pelanggaran" value="{{ old('tanggal_pelanggaran', date('Y-m-d')) }}" required>
+                                                @error('tanggal_pelanggaran')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="keterangan" class="form-label">Keterangan (Opsional)</label>
+                                                <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" rows="4" placeholder="Jelaskan detail pelanggaran...">{{ old('keterangan') }}</textarea>
+                                                @error('keterangan')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-save me-2"></i> Simpan Laporan
                                             </button>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DAFTAR LAPORAN TERBARU -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card content-card">
+                                    <div class="card-header">
+                                        <i class="fas fa-list"></i> Laporan Pelanggaran Terbaru
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover align-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nama Siswa</th>
+                                                        <th>Kelas</th>
+                                                        <th>Jenis Pelanggaran</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse($laporan as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->siswa->nama ?? '-' }}</td>
+                                                            <td>{{ $item->siswa->kelas ?? '-' }}</td>
+                                                            <td>{{ $item->jenis_pelanggaran }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d/m/Y') }}</td>
+                                                            <td>
+                                                                @if($item->status === 'selesai')
+                                                                    <span class="badge bg-success">Selesai</span>
+                                                                @else
+                                                                    <span class="badge bg-warning">Menunggu</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="6" class="text-center py-4 text-muted">
+                                                                <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
+                                                                Belum ada laporan pelanggaran.
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $laporan->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

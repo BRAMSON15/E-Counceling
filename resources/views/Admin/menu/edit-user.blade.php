@@ -4,13 +4,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Kelola User - E-Counseling SMA NEGERI 12 AMBON" />
-    <title>Kelola User | E-Counseling</title>
+    <meta name="description" content="Edit User - E-Counseling SMA NEGERI 12 AMBON" />
+    <title>Edit User | E-Counseling</title>
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="{{asset('beranda2/css/styles.css')}}" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <style>
         body, html { font-family: 'Muli', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .sb-topnav { background: linear-gradient(90deg, #1a1a1f 0%, #2d1a10 100%) !important; border-bottom: 2px solid #bd5d38; box-shadow: 0 2px 15px rgba(0,0,0,0.5); }
@@ -27,16 +26,15 @@
         .page-header h1 { color: #2d1a10; font-family: 'Saira Extra Condensed', sans-serif; font-size: 2rem; font-weight: 700; margin: 0; }
         .content-card { border: none; border-radius: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; }
         .content-card .card-header { background: linear-gradient(90deg, #2d1a10 0%, #bd5d38 100%); color: #ffffff; font-weight: 700; padding: 1rem 1.5rem; border: none; }
-        .btn-sm { border-radius: 0.4rem; font-size: 0.8rem; padding: 0.4rem 0.8rem; }
-        .btn-edit { background-color: #bd5d38; border-color: #bd5d38; color: #fff; }
-        .btn-edit:hover { background-color: #a44d2d; border-color: #a44d2d; }
-        .btn-delete { background-color: #dc3545; border-color: #dc3545; color: #fff; }
-        .btn-delete:hover { background-color: #c82333; border-color: #c82333; }
-        .btn-tambah { background-color: #28a745; border-color: #28a745; color: #fff; }
-        .btn-tambah:hover { background-color: #218838; border-color: #218838; }
-        .badge-admin { background-color: #dc3545; }
-        .badge-guru_bk { background-color: #007bff; }
-        .badge-walikelas { background-color: #17a2b8; }
+        .form-control { border-radius: 0.5rem; border: 1px solid #ddd; }
+        .form-control:focus { border-color: #bd5d38; box-shadow: 0 0 0 0.2rem rgba(189, 93, 56, 0.25); }
+        .form-label { font-weight: 600; color: #2d1a10; margin-bottom: 0.5rem; }
+        .btn-submit { background-color: #bd5d38; border-color: #bd5d38; color: #fff; font-weight: 600; border-radius: 0.5rem; }
+        .btn-submit:hover { background-color: #a44d2d; border-color: #a44d2d; }
+        .btn-cancel { background-color: #6c757d; border-color: #6c757d; color: #fff; font-weight: 600; border-radius: 0.5rem; }
+        .btn-cancel:hover { background-color: #5a6268; border-color: #5a6268; }
+        .is-invalid { border-color: #dc3545 !important; }
+        .invalid-feedback { color: #dc3545; font-size: 0.875rem; display: block; margin-top: 0.25rem; }
         footer { background: linear-gradient(90deg, #1e1e23 0%, #2d1a10 100%) !important; border-top: 2px solid #bd5d38; }
         footer .text-muted { color: rgba(255,255,255,0.5) !important; }
     </style>
@@ -104,8 +102,8 @@
                         </a>
                         <div class="collapse show" id="collapseUsers" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link active" href="{{ route('admin.kelolauser') }}"><i class="fas fa-circle-dot me-1 small"></i> Kelola Pengguna</a>
-                                <a class="nav-link" href="{{ route('admin.tambahuser.form') }}"><i class="fas fa-circle-dot me-1 small"></i> Tambah Pengguna</a>
+                                <a class="nav-link" href="{{ route('admin.kelolauser') }}"><i class="fas fa-circle-dot me-1 small"></i> Kelola Pengguna</a>
+                                <a class="nav-link active" href="{{ route('admin.tambahuser.form') }}"><i class="fas fa-circle-dot me-1 small"></i> Tambah Pengguna</a>
                             </nav>
                         </div>
                         <a class="nav-link" href="{{ route('admin.siswa') }}">
@@ -134,86 +132,98 @@
             <main>
                 <div class="container-fluid px-4 pt-4">
                     <div class="page-header">
-                        <h1><i class="fas fa-users me-2" style="color:#bd5d38;font-size:1.8rem;"></i>Kelola Pengguna</h1>
+                        <h1><i class="fas fa-user-edit me-2" style="color:#bd5d38;font-size:1.8rem;"></i>Edit Pengguna</h1>
                     </div>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="#">Data Pengguna</a></li>
-                        <li class="breadcrumb-item active">Kelola Pengguna</li>
+                        <li class="breadcrumb-item active">Edit Pengguna</li>
                     </ol>
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle me-2"></i>{{ $message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card content-card">
+                                <div class="card-header">
+                                    <i class="fas fa-form"></i>
+                                    Form Edit Pengguna
+                                </div>
+                                <div class="card-body">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <i class="fas fa-exclamation-circle me-2"></i>
+                                            <strong>Terjadi Kesalahan!</strong>
+                                            <ul class="mb-0 mt-2">
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endif
 
-                    <div class="card content-card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-table"></i>
-                                Daftar Pengguna Sistem
-                            </div>
-                            <a href="{{ route('admin.tambahuser.form') }}" class="btn btn-sm btn-tambah">
-                                <i class="fas fa-plus me-1"></i> Tambah Pengguna
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped" id="datatablesSimple">
-                                    <thead class="table-dark">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Terdaftar</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($users as $user)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>
-                                                    @if ($user->role == 'admin')
-                                                        <span class="badge badge-admin">Admin</span>
-                                                    @elseif ($user->role == 'guru_bk')
-                                                        <span class="badge badge-guru_bk">Guru BK</span>
-                                                    @else
-                                                        <span class="badge badge-walikelas">Walikelas</span>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $user->created_at->format('d/m/Y') }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.edituser', $user->id) }}" class="btn btn-sm btn-edit" title="Edit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('admin.deleteuser', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-delete" title="Hapus">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="6" class="text-center text-muted py-4">
-                                                    <i class="fas fa-inbox fa-2x mb-2"></i><br>
-                                                    Tidak ada data pengguna
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex justify-content-center mt-3">
-                                {{ $users->links() }}
+                                    <form action="{{ route('admin.updateuser', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Nama Lengkap</label>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="role" class="form-label">Role/Peran</label>
+                                            <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
+                                                <option value="">-- Pilih Role --</option>
+                                                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                                                <option value="guru_bk" {{ old('role', $user->role) == 'guru_bk' ? 'selected' : '' }}>Guru BK</option>
+                                                <option value="walikelas" {{ old('role', $user->role) == 'walikelas' ? 'selected' : '' }}>Walikelas</option>
+                                            </select>
+                                            @error('role')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="alert alert-info" role="alert">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            <strong>Catatan:</strong> Kosongkan field password jika tidak ingin mengubah password pengguna.
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password (Opsional)</label>
+                                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                                            @error('password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <small class="text-muted">Minimal 6 karakter. Kosongkan jika tidak ingin mengubah.</small>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                            <small class="text-muted">Ulangi password yang sama</small>
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <button type="submit" class="btn btn-submit">
+                                                <i class="fas fa-save me-1"></i> Simpan Perubahan
+                                            </button>
+                                            <a href="{{ route('admin.kelolauser') }}" class="btn btn-cancel">
+                                                <i class="fas fa-times me-1"></i> Batal
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -237,15 +247,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="{{asset('beranda2/js/scripts.js')}}"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const table = document.getElementById('datatablesSimple');
-            if (table) {
-                new DataTable(table);
-            }
-        });
-    </script>
 </body>
 </html>

@@ -161,14 +161,33 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td colspan="7" class="text-center py-4 text-muted">
-                                                            <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
-                                                            Belum ada data pelanggaran.
-                                                        </td>
-                                                    </tr>
+                                                    @forelse($pelanggaran as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->siswa->nama ?? '-' }}</td>
+                                                            <td>{{ $item->siswa->kelas ?? '-' }}</td>
+                                                            <td>{{ $item->jenis_pelanggaran }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d/m/Y') }}</td>
+                                                            <td>{{ $item->walikelas->name ?? '-' }}</td>
+                                                            <td>
+                                                                <a href="{{ route('guru_bk.hasilkonseling.create', $item->id) }}" class="btn btn-sm btn-primary" title="Tambah Hasil Konseling">
+                                                                    <i class="fas fa-plus me-1"></i> Konseling
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="7" class="text-center py-4 text-muted">
+                                                                <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
+                                                                Belum ada data pelanggaran.
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $pelanggaran->links() }}
                                         </div>
                                     </div>
                                 </div>

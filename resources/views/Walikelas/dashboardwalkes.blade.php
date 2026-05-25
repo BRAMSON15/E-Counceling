@@ -278,7 +278,7 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Total Laporan Dibuat</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $totalLaporan }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
                                     </div>
@@ -292,7 +292,7 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Laporan Bulan Ini</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $laporanBulanIni }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                                     </div>
@@ -306,7 +306,7 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Jumlah Siswa Kelas</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $jumlahSiswa }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-users"></i></div>
                                     </div>

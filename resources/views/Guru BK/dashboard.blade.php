@@ -284,7 +284,7 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Total Kasus Konseling</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $totalKonseling }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-handshake"></i></div>
                                     </div>
@@ -298,7 +298,7 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Kasus Bulan Ini</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $konselingBulanIni }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
                                     </div>
@@ -312,7 +312,7 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Menunggu Tindakan</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $siswaDikonseling }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-clock"></i></div>
                                     </div>

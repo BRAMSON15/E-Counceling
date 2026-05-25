@@ -27,6 +27,7 @@ class GuruBKController extends Controller
     public function dataPelanggaran()
     {
         $pelanggaran = Pelanggaran::with('siswa', 'walikelas')
+            ->where('status', '!=', 'selesai')
             ->latest()
             ->paginate(10);
 

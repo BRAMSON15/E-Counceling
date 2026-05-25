@@ -143,8 +143,13 @@
                         <div class="row mb-4">
                             <div class="col-12">
                                 <div class="card content-card">
-                                    <div class="card-header">
-                                        <i class="fas fa-list"></i> Daftar Hasil Konseling
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="fas fa-list"></i> Daftar Hasil Konseling
+                                        </div>
+                                        <a href="{{ route('guru_bk.datapelanggaran') }}" class="btn btn-sm btn-light">
+                                            <i class="fas fa-plus me-1"></i> Tambah Hasil Konseling
+                                        </a>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -161,14 +166,37 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td colspan="7" class="text-center py-4 text-muted">
-                                                            <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
-                                                            Belum ada hasil konseling yang dicatat.
-                                                        </td>
-                                                    </tr>
+                                                    @forelse($konseling as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->siswa->nama ?? '-' }}</td>
+                                                            <td>{{ $item->siswa->kelas ?? '-' }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($item->tanggal_konseling)->format('d/m/Y') }}</td>
+                                                            <td>
+                                                                <small>{{ Str::limit($item->hasil_konseling, 50) }}</small>
+                                                            </td>
+                                                            <td>
+                                                                <small>{{ Str::limit($item->catatan ?? '-', 50) }}</small>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="btn btn-sm btn-info" title="Lihat Detail">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="7" class="text-center py-4 text-muted">
+                                                                <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
+                                                                Belum ada hasil konseling yang dicatat.
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $konseling->links() }}
                                         </div>
                                     </div>
                                 </div>

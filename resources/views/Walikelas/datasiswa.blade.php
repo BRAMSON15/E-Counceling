@@ -133,12 +133,26 @@
                             <li class="breadcrumb-item active">Data Siswa Kelas</li>
                         </ol>
 
+                        <!-- SUCCESS MESSAGE -->
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Berhasil!</strong> {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <!-- DATA SISWA TABLE -->
                         <div class="row mb-4">
                             <div class="col-12">
                                 <div class="card content-card">
-                                    <div class="card-header">
-                                        <i class="fas fa-list"></i> Daftar Siswa Kelas
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="fas fa-list"></i> Daftar Siswa Kelas
+                                        </div>
+                                        <a href="{{ route('walikelas.siswa.form') }}" class="btn btn-sm btn-light">
+                                            <i class="fas fa-plus me-1"></i> Tambah Siswa
+                                        </a>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -154,14 +168,32 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td colspan="6" class="text-center py-4 text-muted">
-                                                            <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
-                                                            Belum ada data siswa yang ditambahkan.
-                                                        </td>
-                                                    </tr>
+                                                    @forelse($siswa as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->nama }}</td>
+                                                            <td>{{ $item->nis }}</td>
+                                                            <td>{{ $item->kelas }}</td>
+                                                            <td>{{ $item->jenis_kelamin }}</td>
+                                                            <td>
+                                                                <a href="#" class="btn btn-sm btn-info" title="Lihat Detail">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="6" class="text-center py-4 text-muted">
+                                                                <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#bd5d38; opacity:0.4;"></i>
+                                                                Belum ada data siswa yang ditambahkan.
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $siswa->links() }}
                                         </div>
                                     </div>
                                 </div>

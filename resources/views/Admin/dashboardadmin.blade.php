@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Dashboard Admin E-Counseling SMA NEGERI 12 AMBON" />
         <title>Dashboard Admin | E-Counseling SMA NEGERI 12 AMBON</title>
-
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
@@ -317,7 +316,7 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark">
             <!-- Navbar Brand -->
             <a class="navbar-brand ps-3" href="#">
-                <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo" />
+                <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo" />
                 E-Counseling
             </a>
             <!-- Sidebar Toggle -->
@@ -375,8 +374,8 @@
                             </a>
                             <div class="collapse" id="collapseKonseling" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#"><i class="fas fa-circle-dot me-1 small"></i> Semua Konseling</a>
-                                    <a class="nav-link" href="#"><i class="fas fa-circle-dot me-1 small"></i> Tambah Laporan</a>
+                                    <a class="nav-link" href="{{ route('admin.konseling') }}"><i class="fas fa-circle-dot me-1 small"></i> Semua Konseling</a>
+                                    <a class="nav-link" href="{{ route('admin.pelanggaran') }}"><i class="fas fa-circle-dot me-1 small"></i> Data Pelanggaran</a>
                                 </nav>
                             </div>
 
@@ -387,23 +386,23 @@
                             </a>
                             <div class="collapse" id="collapseUsers" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#"><i class="fas fa-circle-dot me-1 small"></i> Guru BK</a>
-                                    <a class="nav-link" href="#"><i class="fas fa-circle-dot me-1 small"></i> Walikelas</a>
+                                    <a class="nav-link" href="{{ route('admin.kelolauser') }}"><i class="fas fa-circle-dot me-1 small"></i> Kelola Pengguna</a>
+                                    <a class="nav-link" href="{{ route('admin.tambahuser.form') }}"><i class="fas fa-circle-dot me-1 small"></i> Tambah Pengguna</a>
                                 </nav>
                             </div>
 
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('admin.siswa') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
                                 Data Siswa
                             </a>
 
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('admin.laporan') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
                                 Laporan & Statistik
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Pengaturan</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('admin.pengaturan') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                                 Pengaturan Sistem
                             </a>
@@ -423,7 +422,7 @@
 
                         <!-- Welcome Banner -->
                         <div class="welcome-banner">
-                            <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo SMA 12 Ambon" />
+                            <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo SMA 12 Ambon" />
                             <div class="welcome-text">
                                 <h2>Selamat Datang, {{ auth()->user()->name ?? 'Administrator' }}!</h2>
                                 <p>Sistem E-Counseling &mdash; SMA NEGERI 12 AMBON</p>
@@ -449,11 +448,11 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Total Konseling</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $totalKonseling }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-handshake"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('admin.konseling') }}">
                                         <span>Lihat Detail</span>
                                         <i class="fas fa-angle-right"></i>
                                     </a>
@@ -464,11 +463,11 @@
                                     <div class="card-body">
                                         <div class="stat-info">
                                             <div class="stat-title">Total Siswa</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-value">{{ $totalSiswa }}</div>
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('admin.siswa') }}">
                                         <span>Lihat Detail</span>
                                         <i class="fas fa-angle-right"></i>
                                     </a>
@@ -478,12 +477,12 @@
                                 <div class="card stat-card stat-brown">
                                     <div class="card-body">
                                         <div class="stat-info">
-                                            <div class="stat-title">Guru BK & Walikelas</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-title">Total Pelanggaran</div>
+                                            <div class="stat-value">{{ $totalPelanggaran }}</div>
                                         </div>
-                                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                                        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('admin.pelanggaran') }}">
                                         <span>Lihat Detail</span>
                                         <i class="fas fa-angle-right"></i>
                                     </a>
@@ -493,12 +492,12 @@
                                 <div class="card stat-card stat-warm">
                                     <div class="card-body">
                                         <div class="stat-info">
-                                            <div class="stat-title">Laporan Bulan Ini</div>
-                                            <div class="stat-value">—</div>
+                                            <div class="stat-title">Total Pengguna</div>
+                                            <div class="stat-value">{{ $totalUser }}</div>
                                         </div>
-                                        <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+                                        <div class="stat-icon"><i class="fas fa-users"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('admin.kelolauser') }}">
                                         <span>Lihat Detail</span>
                                         <i class="fas fa-angle-right"></i>
                                     </a>
