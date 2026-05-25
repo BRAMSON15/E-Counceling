@@ -176,7 +176,7 @@
         <!-- TOP NAVBAR -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark">
             <a class="navbar-brand ps-3" href="#">
-                <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo" />
+                <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo" />
                 E-Counseling
             </a>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
@@ -258,7 +258,7 @@
 
                         <!-- Welcome Banner -->
                         <div class="welcome-banner">
-                            <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo SMA 12 Ambon" />
+                            <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo SMA 12 Ambon" />
                             <div class="welcome-text">
                                 <h2>Selamat Datang, {{ auth()->user()->name ?? 'Guru BK' }}!</h2>
                                 <p>Dashboard Guru BK &mdash; E-Counseling SMA NEGERI 12 AMBON</p>

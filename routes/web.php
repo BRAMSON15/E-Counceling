@@ -31,6 +31,18 @@ Route::middleware(['auth', 'role:walikelas'])->group(function () {
     Route::get('/walikelas/dashboard', function () {
         return view('Walikelas.dashboardwalkes');
     })->name('walikelas.dashboard');
+    
+    Route::get('/walikelas/laporan-pelanggaran', function () {
+        return view('Walikelas.laporanpelanggaran');
+    })->name('walikelas.laporan');
+    
+    Route::get('/walikelas/data-siswa', function () {
+        return view('Walikelas.datasiswa');
+    })->name('walikelas.datasiswa');
+    
+    Route::get('/walikelas/riwayat-laporan', function () {
+        return view('Walikelas.riwayatlaporan');
+    })->name('walikelas.riwayat');
 });
 
 Route::get('/Walikelas/login', function () {

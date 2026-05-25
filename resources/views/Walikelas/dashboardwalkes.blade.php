@@ -176,7 +176,7 @@
         <!-- TOP NAVBAR -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark">
             <a class="navbar-brand ps-3" href="#">
-                <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo" />
+                <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo" />
                 E-Counseling
             </a>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
@@ -218,21 +218,21 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Menu Utama</div>
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link" href="{{ route('walikelas.dashboard') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Pelaporan</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('walikelas.laporan') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-exclamation-triangle"></i></div>
                                 Laporan Pelanggaran
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('walikelas.datasiswa') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
                                 Data Siswa Kelas
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('walikelas.riwayat') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
                                 Riwayat Laporan
                             </a>
@@ -252,7 +252,7 @@
 
                         <!-- Welcome Banner -->
                         <div class="welcome-banner">
-                            <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo SMA 12 Ambon" />
+                            <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo SMA 12 Ambon" />
                             <div class="welcome-text">
                                 <h2>Selamat Datang, {{ auth()->user()->name ?? 'Walikelas' }}!</h2>
                                 <p>Dashboard Walikelas &mdash; E-Counseling SMA NEGERI 12 AMBON</p>
@@ -282,7 +282,7 @@
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('walikelas.laporan') }}">
                                         <span>Lihat Detail</span><i class="fas fa-angle-right"></i>
                                     </a>
                                 </div>
@@ -296,7 +296,7 @@
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('walikelas.riwayat') }}">
                                         <span>Lihat Detail</span><i class="fas fa-angle-right"></i>
                                     </a>
                                 </div>
@@ -310,7 +310,7 @@
                                         </div>
                                         <div class="stat-icon"><i class="fas fa-users"></i></div>
                                     </div>
-                                    <a class="card-footer text-white text-decoration-none" href="#">
+                                    <a class="card-footer text-white text-decoration-none" href="{{ route('walikelas.datasiswa') }}">
                                         <span>Lihat Detail</span><i class="fas fa-angle-right"></i>
                                     </a>
                                 </div>
@@ -323,7 +323,7 @@
                                 <div class="card content-card">
                                     <div class="card-header d-flex align-items-center justify-content-between">
                                         <span><i class="fas fa-list-alt"></i> Riwayat Laporan Pelanggaran</span>
-                                        <a href="#" class="btn-lapor btn">
+                                        <a href="{{ route('walikelas.laporan') }}" class="btn-lapor btn">
                                             <i class="fas fa-plus"></i> Buat Laporan Baru
                                         </a>
                                     </div>

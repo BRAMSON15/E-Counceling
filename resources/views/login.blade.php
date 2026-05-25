@@ -261,7 +261,7 @@
         <div class="card card-login shadow-lg border-0">
             <div class="card-header">
                 <div class="logo-container">
-                    <img src="{{asset('berandautama/assets/img/logo.webp')}}" alt="Logo SMA 12 Ambon" />
+                    <img src="{{asset('berandautama/assets/img/logo1.png')}}" alt="Logo SMA 12 Ambon" />
                 </div>
                 <h3>MASUK SISTEM</h3>
                 <p class="subtitle">E-Counseling | SMA NEGERI 12 AMBON</p>
