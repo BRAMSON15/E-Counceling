@@ -24,6 +24,22 @@ Route::middleware(['auth', 'role:guru_bk'])->group(function () {
     Route::get('/guru-bk/dashboard', function () {
         return view('Guru BK.dashboard');
     })->name('guru_bk.dashboard');
+    
+    Route::get('/guru-bk/data-pelanggaran', function () {
+        return view('Guru BK.datapelanggaran');
+    })->name('guru_bk.datapelanggaran');
+    
+    Route::get('/guru-bk/hasil-konseling', function () {
+        return view('Guru BK.hasilkonseling');
+    })->name('guru_bk.hasilkonseling');
+    
+    Route::get('/guru-bk/data-siswa', function () {
+        return view('Guru BK.datasiswa');
+    })->name('guru_bk.datasiswa');
+    
+    Route::get('/guru-bk/statistik-konseling', function () {
+        return view('Guru BK.statistikkonseling');
+    })->name('guru_bk.statistik');
 });
 
 // Walikelas routes

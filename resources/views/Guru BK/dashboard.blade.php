@@ -218,27 +218,27 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Menu Utama</div>
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link" href="{{ route('guru_bk.dashboard') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Konseling</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('guru_bk.datapelanggaran') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
                                 Data Pelanggaran
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('guru_bk.hasilkonseling') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
                                 Hasil Konseling
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('guru_bk.datasiswa') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
                                 Data Siswa
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Laporan</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('guru_bk.statistik') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
                                 Statistik Konseling
                             </a>
